@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.rabbit.samples</groupId>
+	<artifactId>employee-service</artifactId>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
+
+	<name>employee-service</name>
+	<description>Spring Testing sample project - Employee service</description>
+	<url>https://github.com/bygui86/spring-testing</url>
+
+	<organization>
+		<name>MB SOLID Consulting</name>
+		<url>http://mbsolidconsulting.com</url>
+	</organization>
+
+	<contributors>
+		<contributor>
+			<name>Matteo Baiguini</name>
+			<url>https://github.com/bygui86</url>
+		</contributor>
+	</contributors>
+
+	<developers>
+		<developer>
+			<name>Matteo Baiguini</name>
+			<url>https://github.com/bygui86</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/bygui86/spring-testing</url>
+		<connection>scm:git:git://github.com/bygui86/spring-testing.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/bygui86/spring-testing.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<properties>
+		<!-- general -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- java -->
+		<java-source.version>1.8</java-source.version>
+		<java-target.version>1.8</java-target.version>
+
+		<!-- maven -->
+		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+		<pitest-maven-plugin.version>1.4.2</pitest-maven-plugin.version>
+
+		<!-- spring -->
+		<spring-boot.version>2.1.0.RELEASE</spring-boot.version>
+		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+
+		<!-- swagger -->
+		<swagger.version>2.9.2</swagger.version>
+
+		<!-- logging -->
+		<slf4.version>1.7.25</slf4.version>
+
+		<!-- others -->
+		<mapstruct.version>1.2.0.Final</mapstruct.version>
+		<lombok.version>1.18.2</lombok.version>
+
+		<!-- testing -->
+		<spring-cloud-contract.version>2.0.1.RELEASE</spring-cloud-contract.version>
+		<rest-assured.version>3.2.0</rest-assured.version>
+		<rest-assured-spring-mock-mvc.version>3.0.0</rest-assured-spring-mock-mvc.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- spring -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<!-- spring-cloud -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+
+		<!-- database -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<!-- swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4.version}</version>
+		</dependency>
+
+		<!-- others -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-jdk8</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- testing -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${rest-assured.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>spring-mock-mvc</artifactId>
+			<version>${rest-assured-spring-mock-mvc.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- general -->
+		<finalName>${project.artifactId}</finalName>
+
+		<!-- plugins -->
+		<plugins>
+			<!-- compiler -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<fork>true</fork>
+					<optimize>true</optimize>
+					<source>${java-source.version}</source>
+					<target>${java-target.version}</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${mapstruct.version}</version>
+						</path>
+					</annotationProcessorPaths>
+					<compilerArgs>
+						<compilerArg>
+							-Amapstruct.unmappedTargetPolicy=WARN
+						</compilerArg>
+						<compilerArg>
+							-Amapstruct.defaultComponentModel=spring
+						</compilerArg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
+
+			<!-- spring-boot -->
+			<!-- see https://docs.spring.io/spring-boot/docs/2.0.3.RELEASE/maven-plugin/run-mojo.html#jvmArguments -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<!-- Additional info added to Actuator info -->
+							<additionalProperties>
+								<java.source>${java-source.version}</java.source>
+								<java.target>${java-target.version}</java.target>
+								<build.encoding>${project.build.sourceEncoding}</build.encoding>
+								<reporting.encoding>${project.reporting.outputEncoding}</reporting.encoding>
+							</additionalProperties>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- spring-cloud-contract -->
+			<!--<plugin>-->
+			<!--<groupId>org.springframework.cloud</groupId>-->
+			<!--<artifactId>spring-cloud-contract-maven-plugin</artifactId>-->
+			<!--<version>${spring-cloud-contract.version}</version>-->
+			<!--<extensions>true</extensions>-->
+			<!--<configuration>-->
+
+			<!--&lt;!&ndash; general &ndash;&gt;-->
+
+			<!--<nameSuffixForTests>ContractTest</nameSuffixForTests>-->
+
+
+			<!--&lt;!&ndash; repo &ndash;&gt;-->
+
+			<!--&lt;!&ndash; We want to pick contracts from a Git repository &ndash;&gt;-->
+			<!--&lt;!&ndash; via FILE - STILL TO BE TESTED &ndash;&gt;-->
+			<!--&lt;!&ndash;<contractsRepositoryUrl>file://${env.ROOT}/contracts-stubs</contractsRepositoryUrl>&ndash;&gt;-->
+			<!--&lt;!&ndash;<contractsRepositoryUrl>git://file://${env.ROOT}/contracts-stubs</contractsRepositoryUrl>&ndash;&gt;-->
+			<!--&lt;!&ndash; via GIT protocol &ndash;&gt;-->
+			<!--&lt;!&ndash; /!\   WARNING: you need a already setup ssh-key locally and on GitHub   /!\ &ndash;&gt;-->
+			<!--&lt;!&ndash;<contractsRepositoryUrl>git://git@github.com:bygui86/spring-testing-contracts-stubs.git</contractsRepositoryUrl>&ndash;&gt;-->
+			<!--&lt;!&ndash; via HTTP protocol &ndash;&gt;-->
+			<!--&lt;!&ndash; /!\   WARNING: you need an already setup environment variables locally: MAVEN_GIT_USERNAME and MAVEN_GIT_PASSWORD   /!\ &ndash;&gt;-->
+			<!--&lt;!&ndash;<contractsRepositoryUrl>git://https://github.com/bygui86/spring-testing-contracts-stubs.git</contractsRepositoryUrl>&ndash;&gt;-->
+			<!--&lt;!&ndash;<contractsRepositoryUsername>${env.MAVEN_GIT_USERNAME}</contractsRepositoryUsername>&ndash;&gt;-->
+			<!--&lt;!&ndash;<contractsRepositoryPassword>${env.MAVEN_GIT_PASSWORD}</contractsRepositoryPassword>&ndash;&gt;-->
+
+
+			<!--&lt;!&ndash; contract dependency &ndash;&gt;-->
+
+			<!--&lt;!&ndash;-->
+			<!--We reuse the contract dependency section to set up the path to the folder that contains the contract definitions.-->
+			<!--In our case the path will be /groupId/artifactId/version/contracts-->
+			<!--&ndash;&gt;-->
+			<!--<contractDependency>-->
+			<!--<groupId>${project.groupId}</groupId>-->
+			<!--<artifactId>${project.artifactId}</artifactId>-->
+			<!--<version>${project.version}</version>-->
+			<!--</contractDependency>-->
+
+
+			<!--&lt;!&ndash; The contracts mode can't be classpath &ndash;&gt;-->
+
+			<!--&lt;!&ndash; local &ndash;&gt;-->
+			<!--<contractsMode>LOCAL</contractsMode>-->
+			<!--&lt;!&ndash; remote repo &ndash;&gt;-->
+			<!--&lt;!&ndash;<contractsMode>REMOTE</contractsMode>&ndash;&gt;-->
+
+
+			<!--&lt;!&ndash; base class mappings &ndash;&gt;-->
+
+			<!--&lt;!&ndash; Different base classes for contracts - by mapping &ndash;&gt;-->
+			<!--&lt;!&ndash; PLEASE NOTE: This rule takes precedence over baseClassForTests and packageWithBaseClasses &ndash;&gt;-->
+			<!--<baseClassMappings>-->
+			<!--<baseClassMapping>-->
+			<!--<contractPackageRegex>.*employee.*</contractPackageRegex>-->
+			<!--<baseClassFQN>com.rabbit.samples.employeeservice.contracttests.basepackage.EmployeesBase</baseClassFQN>-->
+			<!--</baseClassMapping>-->
+			<!--<baseClassMapping>-->
+			<!--<contractPackageRegex>.*greetings.*</contractPackageRegex>-->
+			<!--<baseClassFQN>com.rabbit.samples.employeeservice.contracttests.basepackage.GreetingsBase</baseClassFQN>-->
+			<!--</baseClassMapping>-->
+			<!--<baseClassMapping>-->
+			<!--<contractPackageRegex>.*info.*</contractPackageRegex>-->
+			<!--<baseClassFQN>com.rabbit.samples.employeeservice.contracttests.basepackage.InfoBase</baseClassFQN>-->
+			<!--</baseClassMapping>-->
+			<!--</baseClassMappings>-->
+
+			<!--&lt;!&ndash; Different base classes for contracts - by convention &ndash;&gt;-->
+			<!--&lt;!&ndash; PLEASE NOTE: This rule takes precedence over baseClassForTests &ndash;&gt;-->
+			<!--&lt;!&ndash; /!\   WARNING: This rule does not work well retrieving contracts from repo   /!\ &ndash;&gt;-->
+			<!--&lt;!&ndash;<packageWithBaseClasses>com.rabbit.samples.employeeservice.contracttests.basepackage</packageWithBaseClasses>&ndash;&gt;-->
+
+			<!--&lt;!&ndash; Fallback - Providing the baseClassForTests, we have a fallback in case mappings did not succeed. &ndash;&gt;-->
+			<!--<baseClassForTests>com.rabbit.samples.employeeservice.contracttests.GenericBase</baseClassForTests>-->
+			<!--</configuration>-->
+			<!--&lt;!&ndash;<executions>&ndash;&gt;-->
+			<!--&lt;!&ndash;<execution>&ndash;&gt;-->
+			<!--&lt;!&ndash;<phase>package</phase>&ndash;&gt;-->
+			<!--&lt;!&ndash;<phase>install</phase>&ndash;&gt;-->
+			<!--&lt;!&ndash;<goals>&ndash;&gt;-->
+			<!--&lt;!&ndash; By default we will not push the stubs back to SCM, you have to explicitly add it as a goal &ndash;&gt;-->
+			<!--&lt;!&ndash;<goal>pushStubsToScm</goal>&ndash;&gt;-->
+			<!--&lt;!&ndash;</goals>&ndash;&gt;-->
+			<!--&lt;!&ndash;</execution>&ndash;&gt;-->
+			<!--&lt;!&ndash;</executions>&ndash;&gt;-->
+			<!--</plugin>-->
+
+			<!-- pitest - mutation testing -->
+			<!--
+				PLEASE NOTE:
+				Even though mutation testing reveals defects in code, it should be used wisely,
+				because it is an extremely costly and time-consuming process.
+			 -->
+			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<version>${pitest-maven-plugin.version}</version>
+				<configuration>
+					<withHistory>true</withHistory>
+					<timestampedReports>false</timestampedReports>
+					<outputFormats>
+						<outputFormat>HTML</outputFormat>
+						<outputFormat>XML</outputFormat>
+					</outputFormats>
+					<failWhenNoMutations>true</failWhenNoMutations>
+					<mutationThreshold>50</mutationThreshold>
+					<avoidCallsTo>
+						<avoidCallsTo>java</avoidCallsTo>
+						<avoidCallsTo>org.apache</avoidCallsTo>
+						<avoidCallsTo>org.slf4j</avoidCallsTo>
+						<avoidCallsTo>org.eclipse</avoidCallsTo>
+						<avoidCallsTo>lombok</avoidCallsTo>
+						<avoidCallsTo>org.springframework</avoidCallsTo>
+					</avoidCallsTo>
+					<excludedClasses>
+						<!-- generic exclusions -->
+						<excludedClass>*constants*</excludedClass>
+						<excludedClass>*domain*</excludedClass>
+						<excludedClass>*entities*</excludedClass>
+						<excludedClass>*daos*</excludedClass>
+						<excludedClass>*dtos*</excludedClass>
+						<excludedClass>*Mock*</excludedClass>
+						<!-- special exclusions -->
+						<!-- none -->
+					</excludedClasses>
+				</configuration>
+				<!-- Execution to configure pitest:mutationCoverage to be executed at the end of maven test phase -->
+				<!--<executions>-->
+				<!--<execution>-->
+				<!--<id>pitest-mutation-coverage</id>-->
+				<!--<phase>test</phase>-->
+				<!--<goals>-->
+				<!--<goal>mutationCoverage</goal>-->
+				<!--</goals>-->
+				<!--</execution>-->
+				<!--</executions>-->
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
