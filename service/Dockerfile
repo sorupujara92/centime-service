@@ -1,18 +1,26 @@
-
 FROM openjdk:8-jre-alpine
-RUN mkdir -p /opt/
-#ADD target/ /opt/
+
+# Set the working directory
 WORKDIR /opt
 
+# Copy Maven wrapper and POM file
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 
-RUN ./mvnw dependency:go-offline
- 
-COPY src ./src
- 
-CMD ["./mvnw", "spring-boot:run"]
-#EXPOSE 8080
-#EXPOSE 8090
+# Give execution permissions to Maven wrapper
+RUN chmod +x mvnw
 
-#ENTRYPOINT exec java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap $JAVA_OPTS -jar employee-service.jar
+# Download dependencies
+RUN ./mvnw dependency:go-offline
+
+# Copy the source code
+COPY src ./src
+
+# Expose application port
+EXPOSE 8080
+
+# Build the application
+RUN ./mvnw package
+
+# Run the application
+CMD ["java", "-jar", "target/*.jar"]
