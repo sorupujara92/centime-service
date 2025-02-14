@@ -1,7 +1,7 @@
 
 FROM openjdk:8-jre-alpine
 RUN mkdir -p /opt/
-ADD target/ /opt/
+#ADD target/ /opt/
 WORKDIR /opt
 
 COPY .mvn/ .mvn
