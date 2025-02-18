@@ -29,6 +29,6 @@ resource "google_compute_instance" "vm_instance_project_a" {
   curl -X POST "$awx_url" -H "Authorization: Bearer $awx_token" -H "Content-Type: application/json" -d "$data"
   EOF
   zone="us-central1-a"
-  project="gcp-bootcamp-410606"
+  project="samad-450009"
 }
 
