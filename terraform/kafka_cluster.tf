@@ -2,7 +2,7 @@ resource "google_managed_kafka_cluster" "kafka_cluster" {
   cluster_id = "cluster"
   location = "us-east1"
   capacity_config {
-    vcpu_count = 1
+    vcpu_count = 3
     memory_bytes = 3221225472
   }
   project = "samad-450009"
