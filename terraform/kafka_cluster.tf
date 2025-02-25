@@ -8,7 +8,7 @@ resource "google_managed_kafka_cluster" "kafka_cluster" {
   gcp_config {
     access_config {
       network_configs {
-        subnet = "projects/samad-450009/regions/us-central1/subnetworks/default"
+        subnet = "projects/${data.google_project.project.number}/regions/us-central1/subnetworks/default"
       }
     }
   }
@@ -20,5 +20,5 @@ resource "google_managed_kafka_cluster" "kafka_cluster" {
   }
 }
 
-# data "google_project" "project" {
-# }
+data "google_project" "project" {
+}
