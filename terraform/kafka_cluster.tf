@@ -1,5 +1,5 @@
 resource "google_managed_kafka_cluster" "kafka_cluster" {
-  cluster_id = "poc_kafka_cluster"
+  cluster_id = "cluster"
   location = "us-east1"
   capacity_config {
     vcpu_count = 1
