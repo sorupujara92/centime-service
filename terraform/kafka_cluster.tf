@@ -24,6 +24,7 @@ resource "google_managed_kafka_cluster" "kafka_cluster" {
 
 resource "google_managed_kafka_topic" "example" {
   topic_id = "my-topic"
+  project = "samad-450009"
   cluster = google_managed_kafka_cluster.kafka_cluster.cluster_id
   location = "us-central1"
   partition_count = 2
