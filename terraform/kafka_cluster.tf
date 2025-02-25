@@ -1,6 +1,6 @@
 resource "google_managed_kafka_cluster" "kafka_cluster" {
   cluster_id = "poc_kafka_cluster"
-  location = "us-central1"
+  location = "us-east1"
   capacity_config {
     vcpu_count = 1
     memory_bytes = 3221225472
@@ -10,7 +10,7 @@ resource "google_managed_kafka_cluster" "kafka_cluster" {
   gcp_config {
     access_config {
       network_configs {
-        subnet = "projects/samad-450009/regions/us-central1/subnetworks/default"
+        subnet = "projects/samad-450009/regions/us-east1/subnetworks/default"
       }
     }
   }
@@ -26,7 +26,7 @@ resource "google_managed_kafka_topic" "example" {
   topic_id = "my-topic"
   project = "samad-450009"
   cluster = google_managed_kafka_cluster.kafka_cluster.cluster_id
-  location = "us-central1"
+  location = "us-east1"
   partition_count = 2
   replication_factor = 3
   configs = {
