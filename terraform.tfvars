@@ -1,3 +1,3 @@
-project="1samad-450009"
-region="us-east12"
+project="samad-450009"
+region="us-east1"
 topic="terraformtfvarstopic"
